@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopp_cart/Constants/global_variables.dart';
 import 'package:shopp_cart/features/auth/screens/auth_screen.dart';
-import 'Constants/global_variables.dart';
+//import 'Constants/global_variables.dart';
+import 'package:flutter/services.dart';
 import 'router.dart';
 
 void main() {
@@ -27,8 +28,13 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.light(
             primary: GlobalVariables.secondaryColor,
           )),
+      initialRoute: '/',
+      onGenerateRoute: ((settings) => generateRoute(settings)),
       home: Scaffold(
         appBar: AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: GlobalVariables.secondaryColor,
+          ),
           title: Text("Hi"),
         ),
         body: Column(
@@ -36,16 +42,16 @@ class MyApp extends StatelessWidget {
             Center(
               child: Text("hi"),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, AuthScreen.routname);
-                },
-                child: Text("click"))
+            Builder(builder: (context) {
+              return ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AuthScreen.routname);
+                  },
+                  child: Text("click"));
+            })
           ],
         ),
       ),
-      initialRoute: '/',
-      onGenerateRoute: ((settings) => generateRoute(settings)),
     );
   }
 }
